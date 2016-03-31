@@ -1,0 +1,9 @@
+<script src="$!{contextPath}/resource/js/lib/bootstrap.min.js?v=$!{v}" type="text/javascript"></script>
+<script src="$!{contextPath}/resource/js/lib/ace-elements.min.js?v=$!{v}" type="text/javascript"></script>
+<script src="$!{contextPath}/resource/js/lib/ace.min.js?v=$!{v}" type="text/javascript"></script>
+<script src="$!{contextPath}/resource/js/lib/bootstrap-switch.min.js?v=$!{v}" type="text/javascript"></script>
+<script src="$!{contextPath}/resource/js/lib/bootstrap-prompts-alert.js?v=$!{v}" type="text/javascript"></script>
+<script src="$!{contextPath}/resource/js/lib/jquery.validator.js?v=$!{v}" type="text/javascript"></script>
+<script src="$!{contextPath}/resource/js/lib/zh_CN.js?v=$!{v}" type="text/javascript"></script>
+<script src="$!{contextPath}/resource/js/common.js?v=$!{v}" type="text/javascript"></script>
+<script src="$!{contextPath}/resource/js/iLoad.js?v=$!{v}" type="text/javascript"></script>

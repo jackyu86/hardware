@@ -1,0 +1,63 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-autowire="byName">
+
+	<!-- 注解扫描包 -->
+	<context:component-scan base-package="com.hw.hardware.dao" />
+
+	<!-- BoneCP configuration -->
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClass}" />
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 设置每60秒检查数据库中的空闲连接数 -->
+		<property name="idleConnectionTestPeriodInMinutes" value="${jdbc.idleConnectionTestPeriod}" />
+		<!-- 设置连接空闲时间 -->
+		<property name="idleMaxAgeInMinutes" value="${jdbc.idleMaxAge}" />
+		<!-- 设置每个分区中的最大连接数 -->
+		<property name="maxConnectionsPerPartition" value="${jdbc.maxConnectionsPerPartition}" />
+		<!-- 设置每个分区中的最小连接数 -->
+		<property name="minConnectionsPerPartition" value="${jdbc.minConnectionsPerPartition}" />
+		<!-- 分区数 -->
+		<property name="partitionCount" value="${jdbc.partitionCount}" />
+		<!-- 当连接池中的连接耗尽的时候 BoneCP一次同时获取的连接数 -->
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<property name="statementsCacheSize" value="${jdbc.statementsCacheSize}" />
+		<!-- 连接释放处理 -->
+		<property name="releaseHelperThreads" value="${jdbc.releaseHelperThreads}" />
+	</bean>
+
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+	</bean>
+
+	<bean id="sqlTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sessionFactory" />
+	</bean>
+
+	<bean id="batchSqlTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sessionFactory" />
+		<constructor-arg index="1" value="BATCH" />
+	</bean>
+	
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- redis集成 -->
+	<bean id="jedisMasterConnection" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName" value="${redis.server.ip}" />
+		<property name="port" value="${redis.server.port}" />
+		<property name="password" value="${redis.server.password}" />
+	</bean>
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisMasterConnection" />
+	</bean>
+</beans>

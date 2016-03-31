@@ -1,0 +1,14 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="$!{contextPath}/resource/css/bootstrap.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/font-awesome.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/ace.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/ace-rtl.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/ace-skins.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+
+<link href="$!{contextPath}/resource/css/jquery-ui-1.9.2.custom.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/jquery.validator.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/base.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/page.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<script src="$!{contextPath}/resource/js/lib/jquery.min.js?v=$!{v}" type="text/javascript"></script>
+<script>var contextPath = "$!{contextPath}";</script>

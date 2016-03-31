@@ -1,0 +1,237 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="$!{contextPath}/resource/css/bootstrap.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/font-awesome.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/ace.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/ace-rtl.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/ace-skins.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/jquery-ui-1.10.3.full.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/jquery.validator.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/base.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/page.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<script src="$!{contextPath}/resource/js/lib/jquery.min.js?v=$!{v}" type="text/javascript"></script>
+<!–[if IE]>
+	<script src="$!{contextPath}/resource/js/lib/html5.js?v=$!{v}"></script>
+<![endif]–>
+
+<script type="text/javascript">
+	var contextPath = "$!{contextPath}";
+</script>
+<body style="overflow-x:hidden;">
+	<div class="navbar navbar-default">
+		<div id="navbar-container" class="navbar-container">
+			<div class="navbar-header pull-left">
+				<img src="$!{contextPath}/resource/img/logo.png"></img>
+			</div>
+			<div role="navigation" class="navbar-header pull-right">
+                <ul class="nav ace-nav">
+                    <li class="light-blue2">
+                        <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">
+                            <span class="user-info">
+                            欢迎您，$!{loginUser.realName}
+                            </span>
+                            <i class="icon-caret-down"></i>
+                        </a>
+
+                        <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                            <li>
+                                <a href="javascript:void(0);" onclick="iLoadJS.logout();">
+                                    <i class="red icon-off"></i>
+                                    退出
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul><!-- /.ace-nav -->
+            </div>
+		</div><!-- /.container -->
+	</div>
+	<div class="main-container">
+		<div class="sidebar">
+			<ul id="sidebar" class="nav nav-list">
+				#foreach($!{menu} in $!{menuList})
+					#if($!{menu.parentResCode} == -1)
+						<li #if((!$!{requestid} && $!{menu.name} == "主页")) class="active" #end>
+							<a id="$!{menu.resCodeStr}" href="javascript:void(0);" #if($!{menu.isParent} == "true") class="dropdown-toggle"  #else onclick='iLoadJS.upContent("main-content", "$!{contextPath}$!{menu.url}");' #end>
+								<i class="$!{menu.icon}"></i>
+								<span class="menu-text">$!{menu.name}</span>
+								#if($!{menu.isParent} == "true")
+									<b class="arrow icon-angle-down"></b>
+								#end
+							</a>
+							<ul class="submenu">
+							#foreach($!{subMenu} in $!{menuList})
+								#if($!{subMenu.parentResCode} == $!{menu.resCodeStr})
+									#set($url="$!{contextPath}$!{subMenu.url}")
+									#if($!{menu.resCodeStr}=="JONE-DMPS" && $!{subMenu.resCodeStr}!="JONE-DMPS-PSXXTJ")
+										#set($url="$!{url}?username=$!{loginUser.name}&token=$!{token}")
+									#end
+									<li>
+										<a id="$!{subMenu.resCodeStr}" data-url="$!{url}" href="javascript:void(0);" onclick="iLoadJS.upContent('main-content', '$!{url}');">
+											<i class="icon-double-angle-right"></i>
+											<span class="menu-text">$!{subMenu.name}</span>
+										</a>
+									</li>
+								#end
+							#end
+							</ul>
+						</li>
+					#end
+				#end
+			</ul>
+		</div>
+		<div id="main-content" class="main-content"></div>
+		<div class="main-footer">
+			<div class="content">
+				<p>
+					<a data-target="#ourEmail" data-toggle="modal">联系我们</a>
+					<span>|</span>
+					<a data-target="#aboutUs" data-toggle="modal">团队信息</a>
+					<span>|</span>
+					<a data-target="#suggestionModal" data-toggle="modal">我要建议</a>
+				</p>
+				<p>成都研究院与技术研发管理部联合出品&nbsp;Copyright &copy; 2012-2014 <a href="mailto://J-one@jd.com">J-ONE™</a></p>	
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="ourEmail" tabindex="-1" role="dialog" aria-labelledby="ourEmailModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 class="modal-title" id="ourEmailModalLabel">联系我们</h3>
+				</div>
+				<div class="modal-body">
+					<p class="help-block">欢迎您提供反馈和建议,非常感谢您对J-ONE（统一工作平台）的支持！</p>
+				<p class="help-block">邮件地址：<a href="mailto://J-One@jd.com">J-One@jd.com</a></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="aboutUs" tabindex="-1" role="dialog" aria-labelledby="aboutUsModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 class="modal-title" id="aboutUsModalLabel">团队信息</h3>
+				</div>
+				<div class="modal-body">
+					<!--<p>J-ONE由成都研究院与技术研发管理部提供</p>-->
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="widget-box transparent">
+								<div class="widget-header widget-header-flat">
+									<h4 class="widget-title lighter">J-ONE一期</h4>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main no-padding">
+										<table class="table table-bordered">
+											<thead class="thin-border-bottom">
+												<tr>
+													<th width="50%">成都云平台</th>
+													<th width="50%">过程管理部</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>陈旭</td>
+													<td>王睿娜</td>
+												</tr>
+												<tr>
+													<td>董旭</td>
+													<td>王玲</td>
+												</tr>
+												<tr>
+													<td>陈鹏</td>
+													<td>张洋</td>
+												</tr>
+												<tr>
+													<td>周丹</td>
+													<td>姬高峰</td>
+												</tr>
+												<tr>
+													<td>彭志国</td>
+													<td>刘玮玮</td>
+												</tr>
+												<tr>
+													<td>刘维</td>
+													<td>蔡晓明</td>
+												</tr>
+											</tbody>
+										</table>
+									</div><!-- /.widget-main -->
+								</div><!-- /.widget-body -->
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="widget-box transparent">
+								<div class="widget-header widget-header-flat">
+									<h4 class="widget-title lighter">J-ONE二期</h4>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main no-padding">
+										<table class="table table-bordered">
+											<thead class="thin-border-bottom">
+												<tr>
+													<th width="50%">成都研究院</th>
+													<th width="50%">技术研发管理部</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>黄燃</td>
+													<td>张洋</td>
+												</tr>
+												<tr>
+													<td>黎方</td>
+													<td>蔡晓明</td>
+												</tr>
+												<tr>
+													<td>宋小兵</td>
+													<td>姬高峰</td>
+												</tr>
+												<tr>
+													<td>彭志国</td>
+													<td>董京京</td>
+												</tr>
+												<tr>
+													<td>董旭</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>赵勇</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>王凯</td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</div><!-- /.widget-main -->
+								</div><!-- /.widget-body -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="$!{contextPath}/resource/js/lib/bootstrap.min.js?v=$!{v}" type="text/javascript"></script>
+	<script src="$!{contextPath}/resource/js/lib/typeahead-bs2.min.js?v=$!{v}" type="text/javascript"></script>
+    <script src="$!{contextPath}/resource/js/lib/ace-elements.min.js?v=$!{v}" type="text/javascript"></script>
+    <script src="$!{contextPath}/resource/js/lib/ace.min.js?v=$!{v}" type="text/javascript"></script>
+    <script src="$!{contextPath}/resource/js/lib/jquery.validator.js?v=$!{v}" type="text/javascript"></script>
+    <script src="$!{contextPath}/resource/js/lib/zh_CN.js?v=$!{v}" type="text/javascript"></script>
+    <script src="$!{contextPath}/resource/js/common.js?v=$!{v}" type="text/javascript"></script>
+    <script src="$!{contextPath}/resource/js/iLoad.js?v=$!{v}" type="text/javascript"></script>
+	<script src="$!{contextPath}/resource/js/lib/jquery.form.js?v=$!{v}" type="text/javascript"></script>
+</body>

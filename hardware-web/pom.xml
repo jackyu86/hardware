@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hw</groupId>
+		<artifactId>hardware</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<artifactId>hardware-web</artifactId>
+	<packaging>war</packaging>
+	<name>hardware-web</name>
+	
+	<build>
+	  <finalName>hardware-web</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+		    		<encoding>utf-8</encoding>
+				</configuration>
+	    	</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- service -->
+		<dependency>
+			<groupId>com.hw</groupId>
+			<artifactId>hardware-service</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<!-- rpc依赖 -->
+		<dependency>
+			<groupId>com.hw</groupId>
+			<artifactId>hardware-rpc</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<!-- 自动任务 -->
+		<dependency>
+			<groupId>com.hw</groupId>
+			<artifactId>hardware-worker</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<!-- 单元测试 -->
+		<dependency>
+			<artifactId>junit</artifactId>
+			<groupId>junit</groupId>
+		</dependency>
+	</dependencies>
+</project>

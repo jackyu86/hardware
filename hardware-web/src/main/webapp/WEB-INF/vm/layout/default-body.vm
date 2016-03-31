@@ -1,0 +1,19 @@
+<div class="content">
+	<div class="header">
+		<div class="header-info">
+			<span id="serverDate" class="label" data-serverTime="$!DateUtils.getServerTime()">$!DateUtils.format("yyyy-MM-dd HH:mm:ss")</span>
+		</div>
+		<h1 class="page-title">&nbsp;</h1>
+	</div>
+	<ul class="breadcrumb">&nbsp;</ul>
+	<div class="container-fluid">
+		<div id="vmContainer" class="row-fluid">
+			$!{screen_content}
+		</div>
+		<footer>
+			<hr>
+			&copy; 2013 <a href="http://www.cfish.org" target="_blank">CFISH.ORG</a>
+			<p class="pull-right"><span>Design by <a href="mailto:cfish@cfish.org">cfish</a></span></p>
+		</footer>
+	</div>
+</div>

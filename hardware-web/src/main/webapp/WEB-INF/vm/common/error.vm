@@ -1,0 +1,10 @@
+<link href="$!{contextPath}/resource/css/bootstrap.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<link href="$!{contextPath}/resource/css/ace.min.css?v=$!{v}" rel="stylesheet" type="text/css"/>
+<body style="background:white;">
+<div class="alert alert-danger">
+	<strong>$!{value.code}！</strong>$!{value.result}
+</div>
+#if($!{value.data})
+<pre class="red"><a class="close" data-dismiss="alert">×</a>$!{value.data}</pre>
+#end
+</body>

@@ -1,0 +1,44 @@
+<input type="hidden" id="currPage" name="currentPage" value="$!{page.currentPage}">
+<input type="hidden" id="pageSize" name="pageSize" value="$!{page.pageSize}">
+<input type="hidden" id="showPage" name="showPage" value="$!{page.showPage}">
+<div class="row page">
+    <div class="col-xs-6">
+		共$!{page.pageCount}页 &nbsp;&nbsp;&nbsp;&nbsp;总计$page.totalCount条记录
+		#set ($arr=["5", "10","25", "50", "100"])
+		<select class="select w100" onchange="javascript:skipTo(1, this.value)">
+			#foreach($num in $arr)
+				#if($page.pageSize == $num)
+					<option value="$num" selected="selected">每页${num}行</option>
+				#else
+                    <option value="$num">每页${num}行</option>
+				#end
+			#end
+        </select>
+	</div>
+	<div class="col-xs-6 textR">
+		#if($page.currentPage <= 1)
+			<a class="btn btn-white btn-xs disabled">首页</a>
+			<a class="btn btn-white btn-xs disabled">上一页</a>
+		#else
+			<a class="btn btn-white btn-xs" href="javascript:skipTo(1)">首页</a>
+			<a class="btn btn-white btn-xs" href="javascript:skipTo($page.currentPage - 1)">上一页</a>
+		#end
+			#foreach( $pageNum in [$page.startPage..$page.endPage] )
+				#if($pageNum == $page.currentPage)
+					<a class="btn btn-white btn-xs disabled">$pageNum</a>
+				#else
+	                <a class="btn btn-white btn-xs" href="javascript:skipTo($pageNum)">$pageNum</a>
+				#end
+			#end
+		#if($page.currentPage < $page.pageCount)
+			<a class="btn btn-white btn-xs" href="javascript:skipTo($page.currentPage + 1)">下一页</a>
+			<a class="btn btn-white btn-xs" href="javascript:skipTo($page.getPageCount())">尾页</a>
+		#else
+			<a class="btn btn-white btn-xs disabled">下一页</a>
+			<a class="btn btn-white btn-xs disabled">尾页</a>
+		#end
+	
+        <input class="text w30" type="text" id="toCurrPage" name="currPage" value="${page.currentPage}" />
+    	<button class="btn btn-white btn-xs" type="button" onclick="if(toCurrPage.value==$page.currentPage){}else if(toCurrPage.value<=$page.pageCount && toCurrPage.value>=1){skipTo(toCurrPage.value)}else{if($page.pageCount==1){showPopover(this, '', '当前列表只有1页数据，不能跳转');} else if($page.pageCount==0){showPopover(this, '', '当前列表无数据，不能跳转');} else{showPopover(this, '', '页数不正确，请输入1到$page.pageCount之间的数字');}}">跳转</button>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-autowire="byName">
+
+	<!-- 加载属性文件 -->
+	<bean class="com.hw.hardware.common.spring.CustomizedPropertyConfigurer">
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:conf/important.properties</value>
+				<value>classpath:conf/hw-production.properties</value>
+				<value>classpath:conf/hw.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 自动注入ApplicationContext -->
+	<bean class="com.hw.hardware.common.spring.ApplicationContextUtil"/>
+	
+	<!-- 注解扫描包 -->
+	<context:component-scan base-package="com.hw.hardware.web" />
+
+	<!-- 导入分类配置 -->
+	<import resource="classpath*:ctx-hw-web-mvc.xml" />
+	<import resource="classpath*:ctx-hw-service.xml" />
+	<import resource="classpath*:ctx-hw-dao.xml" />
+	<import resource="classpath*:ctx-hw-worker.xml" />
+	<import resource="classpath*:ctx-hw-rpc.xml" />
+</beans>
